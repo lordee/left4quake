@@ -155,6 +155,7 @@ entity() FindIntermission =
 		return spot;
 	
 	objerror ("FindIntermission: no spot");
+	return world;
 };
 
 
@@ -243,8 +244,6 @@ void() execute_changelevel =
 
 void() changelevel_touch =
 {
-	local entity    pos;
-
 	if (other.classname != "player")
 		return;
 
@@ -382,63 +381,6 @@ void() PlayerDie;
 
 /*
 ===========
-ValidateUser
-
-
-============
-*/
-float(entity e) ValidateUser =
-{
-/*
-	local string    s;
-	local string    userclan;
-	local float     rank, rankmin, rankmax;
-
-//
-// if the server has set "clan1" and "clan2", then it
-// is a clan match that will allow only those two clans in
-//
-	s = serverinfo("clan1");
-	if (s)
-	{
-		userclan = masterinfo(e,"clan");
-		if (s == userclan)
-			return true;
-		s = serverinfo("clan2");
-		if (s == userclan)
-			return true;
-		return false;
-	}
-
-//
-// if the server has set "rankmin" and/or "rankmax" then
-// the users rank must be between those two values
-//
-	s = masterinfo (e, "rank");
-	rank = stof (s);
-
-	s = serverinfo("rankmin");
-	if (s)
-	{
-		rankmin = stof (s);
-		if (rank < rankmin)
-			return false;
-	}
-	s = serverinfo("rankmax");
-	if (s)
-	{
-		rankmax = stof (s);
-		if (rankmax < rank)
-			return false;
-	}
-
-	return true;
-*/
-};
-
-
-/*
-===========
 PutClientInServer
 
 called each time a player enters a new level
@@ -446,8 +388,7 @@ called each time a player enters a new level
 */
 void() PutClientInServer =
 {
-	local   entity spot;
-	local 	string	s;
+	local entity spot;
 
 	self.classname = "player";
 	self.health = 100;
@@ -615,7 +556,6 @@ go to the next level for deathmatch
 void() NextLevel =
 {
 	local entity o;
-	local string newmap;
 
 	if (nextmap != "")
 		return; // already done
@@ -690,7 +630,6 @@ void() CheckRules =
 
 void() PlayerDeathThink =
 {
-	local entity    old_self;
 	local float             forward;
 
 	if ((self.flags & FL_ONGROUND))
@@ -725,8 +664,6 @@ void() PlayerDeathThink =
 
 void() PlayerJump =
 {
-	local vector start, end;
-
 	if (self.flags & FL_WATERJUMP)
 		return;
 	
@@ -883,9 +820,6 @@ Called every frame before physics are run
 */
 void() PlayerPreThink =
 {
-	local   float   mspeed, aspeed;
-	local   float   r;
-
 	if (intermission_running)
 	{
 		IntermissionThink ();   // otherwise a button could be missed between
@@ -1120,10 +1054,6 @@ Called every frame after physics are run
 */
 void() PlayerPostThink =
 {
-	local   float   mspeed, aspeed;
-	local   float   r;
-
-//dprint ("post think\n");
 	if (self.view_ofs == '0 0 0')
 		return;         // intermission or finale
 	if (self.deadflag)
@@ -1201,7 +1131,6 @@ void(entity targ, entity attacker) ClientObituary =
 {
 	local   float rnum;
 	local   string deathstring, deathstring2;
-	local   string s;
 	local   string  attackerteam, targteam;
 
 	rnum = random();

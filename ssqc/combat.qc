@@ -137,7 +137,6 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	local   entity  oldself;
 	local   float   save;
 	local   float   take;
-	local   string  s;
 	local   string  attackerteam, targteam;
 
 

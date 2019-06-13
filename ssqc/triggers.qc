@@ -25,9 +25,6 @@
 
 */
 
-entity stemp, otemp, s, old;
-
-
 void() trigger_reactivate =
 {
 	self.solid = SOLID_TRIGGER;
@@ -247,8 +244,6 @@ void() trigger_secret =
 
 void() counter_use =
 {
-	local string junk;
-
 	self.count = self.count - 1;
 	if (self.count < 0)
 		return;
@@ -328,6 +323,7 @@ void() play_teleport =
 
 void(vector org) spawn_tfog =
 {
+	entity s;
 	s = spawn ();
 	s.origin = org;
 	s.nextthink = time + 0.2;
