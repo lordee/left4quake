@@ -1,12 +1,14 @@
 ./qwprogs.dat
 
-defs.qc
+../share/defs.qc
 fteextensions.qc
-lfqdefs.qc
+../share/lfqdefs.qc
 subs.qc
+buff.qc
 fight.qc
 ai.qc
 combat.qc
+../share/champtypes.qc
 items.qc
 weapons.qc
 world.qc
@@ -19,6 +21,10 @@ buttons.qc
 triggers.qc
 plats.qc
 misc.qc
+
+champ.qc
+champfrostarcher.qc
+champshambler.qc
 
 ogre.qc
 demon.qc

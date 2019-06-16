@@ -386,6 +386,8 @@ PutClientInServer
 called each time a player enters a new level
 ============
 */
+void SetupChamp();
+
 void() PutClientInServer =
 {
 	local entity spot;
@@ -408,6 +410,8 @@ void() PutClientInServer =
 	self.invincible_time = 0;
 
 	DecodeLevelParms ();
+
+	SetupChamp();
 	
 	W_SetCurrentAmmo ();
 
@@ -416,7 +420,7 @@ void() PutClientInServer =
 	self.th_die = PlayerDie;
 	
 	self.deadflag = DEAD_NO;
-// paustime is set by teleporters to keep the player from moving a while
+// pausetime is set by teleporters to keep the player from moving a while
 	self.pausetime = 0;
 	
 	spot = SelectSpawnPoint ();
@@ -1094,6 +1098,23 @@ void(optional float csqcactive) ClientConnect =
 {
 	bprint (PRINT_HIGH, self.netname);
 	bprint (PRINT_HIGH, " entered the game\n");
+
+	float newid;
+	entity p;
+	p = find(world, classname, "player");
+	if (!p)
+	{
+		self.id = 1;
+	}
+	else
+	{
+		while (p)
+		{
+			newid = (p.id > newid) ? p.id : newid;
+            p = find(p, classname, "player");
+		}
+		self.id = newid + 1;
+	}
 	
 // a client connecting during an intermission can cause problems
 	if (intermission_running)

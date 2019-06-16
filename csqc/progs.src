@@ -1,0 +1,15 @@
+../csprogs.dat
+csdefs.qc
+../share/lfqdefs.qc
+cslfqdefs.qc
+sui_sys.qc
+../share/champtypes.qc
+csutil.qc
+csqc.qc
+input.qc
+hud.qc
+
+menu.qc
+lobby.qc
+client.qc
+view.qc

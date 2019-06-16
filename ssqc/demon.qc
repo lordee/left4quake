@@ -184,6 +184,7 @@ void() monster_demon1 =
 		remove(self);
 		return;
 	}
+
 	precache_model ("progs/demon.mdl");
 	precache_model ("progs/h_demon.mdl");
 

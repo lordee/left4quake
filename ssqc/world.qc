@@ -326,6 +326,24 @@ void() worldspawn =
 
 	precache_model ("progs/v_light.mdl");
 	
+	precache_model ("progs/champions/frostarcher/frostarcherarrow.mdl");
+	precache_model ("progs/champions/frostarcher/frostarcherarrowbuff.mdl");
+	precache_model ("progs/champions/frostarcher/frostarcherultimate.mdl");
+	for (float i = 0; i < Champions.length; i++)
+	{
+		precache_model(Champions[i].model);
+		precache_model(Champions[i].model_head);
+		precache_sound(Champions[i].sound_death);
+		precache_sound(Champions[i].sound_aahit);
+		precache_sound(Champions[i].sound_aahitwall);
+		precache_sound(Champions[i].sound_aashoot);
+		precache_sound(Champions[i].sound_skillone_cast);
+		precache_sound(Champions[i].sound_skilltwo_cast);
+		precache_sound(Champions[i].sound_skillthree_cast);
+		precache_sound(Champions[i].sound_skillfour_cast);
+	}
+	
+    clientstat(STAT_MENU, EV_FLOAT, menu);
 
 //
 // Setup light animation tables. 'a' is total darkness, 'z' is maxbright.
