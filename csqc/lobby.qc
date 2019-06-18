@@ -71,13 +71,13 @@ void (vector vid_size) ShowLobbyMenu = {
 	float width = size_x - (pad * 2);
 	float btnheight = 20;
 
-	if (my_button("btn_team1", [0, ypos], [width, btnheight], "Team 1"))
+	if (my_button("btn_team1", [0, ypos], [width, btnheight], "Survivors"))
 	{
 		LobbyJoinTeam(1);
 	}
 
 	ypos += btnheight + pad;
-	if (my_button("btn_team2", [0, ypos], [width, btnheight], "Team 2"))
+	if (my_button("btn_team2", [0, ypos], [width, btnheight], "Monsters"))
 	{
 		LobbyJoinTeam(2);
 	}

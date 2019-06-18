@@ -425,7 +425,7 @@ void() PutClientInServer =
 // pausetime is set by teleporters to keep the player from moving a while
 	self.pausetime = 0;
 	
-	spot = SelectSpawnPoint ();
+	spot = SelectSpawnPoint();
 
 	self.origin = spot.origin + '0 0 1';
 	self.angles = spot.angles;

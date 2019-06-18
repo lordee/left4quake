@@ -1,6 +1,14 @@
 void (float team) Cmd_JoinTeam_f = {
     self.team_no = team;
-    self.menu = MNU_LOBBYCHAMP;
+
+    if (self.team_no == 2)
+    {
+        self.menu = MNU_LOBBYCHAMP;
+    }
+    else
+    {
+        self.menu = MNU_INACTIVE;
+    }
 }
 
 void (float c) Cmd_ChooseChamp_f = {
