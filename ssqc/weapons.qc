@@ -1330,32 +1330,30 @@ void() CycleWeaponReverseCommand =
 
 /*
 ============
-ServerflagsCommand
-
-Just for development
-============
-*/
-void() ServerflagsCommand =
-{
-	serverflags = serverflags * 2 + 1;
-};
-
-
-/*
-============
 ImpulseCommands
 
 ============
 */
+
+void (entity player) ToggleReady;
 void() ImpulseCommands =
 {
+	if (self.stunned)
+		return;
+
 	if (self.impulse >= 1 && self.impulse <= 8)
 		W_ChangeWeapon ();
 
+	switch (self.impulse)
+	{
+		case READY:
+			ToggleReady(self);
+			break;
+	}
+	
+
 	if (self.impulse == 10)
 		CycleWeaponCommand ();
-	if (self.impulse == 11)
-		ServerflagsCommand ();
 	if (self.impulse == 12)
 		CycleWeaponReverseCommand ();
 

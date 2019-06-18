@@ -1090,6 +1090,16 @@ void() PlayerPostThink =
 };
 
 
+void AliasCommand(float imp, string alias)
+{
+	stuffcmd (self, strcat("alias ", alias, " \"impulse ", ftos(imp), "\"\n"));
+}
+
+void AliasImpulses()
+{
+	AliasCommand(READY, "ready");
+}
+
 /*
 ===========
 ClientConnect
@@ -1120,6 +1130,7 @@ void(optional float csqcactive) ClientConnect =
 		self.id = newid + 1;
 	}
 	
+	AliasImpulses();
 // a client connecting during an intermission can cause problems
 	if (intermission_running)
 		GotoNextMap ();
@@ -1444,3 +1455,7 @@ void(entity targ, entity attacker) ClientObituary =
 		}
 	}
 };
+
+void (entity player) ToggleReady = {
+	player.ready = !player.ready;
+}
