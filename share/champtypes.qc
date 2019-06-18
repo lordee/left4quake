@@ -16,30 +16,24 @@ typedef struct {
     float basead;
     float basehealth;
     float basehealth_regen;
-    float basemana;
-    float basemana_regen;
     float basespeed;
     float baseattackspeed;
     float skill_one;
-    float skill_one_manacost;
     float skill_one_cooldown;
     float skill_one_damage;
     float skill_one_range;
     float skill_one_value;
     float skill_two;
-    float skill_two_manacost;
     float skill_two_cooldown;
     float skill_two_damage;
     float skill_two_range;
     float skill_two_value;
     float skill_three;
-    float skill_three_manacost;
     float skill_three_cooldown;
     float skill_three_damage;
     float skill_three_range;
     float skill_three_value;
     float skill_four;
-    float skill_four_manacost;
     float skill_four_cooldown;
     float skill_four_damage;
     float skill_four_range;
@@ -65,30 +59,24 @@ Champion_t Champions[3] = {
         BASEAD_UNDEFINED,
         BASEHEALTH_UNDEFINED,
         BASEHEALTH_REGEN_UNDEFINED,
-        BASEMANA_UNDEFINED,
-        BASEMANA_REGEN_UNDEFINED,
         BASESPEED_UNDEFINED,
         BASEATTACKSPEED_UNDEFINED,
         SKILLONE_UNDEFINED,
-        SKILLONE_MANACOST_UNDEFINED,
         SKILLONE_COOLDOWN_UNDEFINED,
         SKILLONE_DAMAGE_UNDEFINED,
         SKILLONE_RANGE_UNDEFINED,
         0,
         SKILLTWO_UNDEFINED,
-        SKILLTWO_MANACOST_UNDEFINED,
         SKILLTWO_COOLDOWN_UNDEFINED,
         SKILLTWO_DAMAGE_UNDEFINED,
         SKILLTWO_RANGE_UNDEFINED,
         0,
         SKILLTHREE_UNDEFINED,
-        SKILLTHREE_MANACOST_UNDEFINED,
         SKILLTHREE_COOLDOWN_UNDEFINED,
         SKILLTHREE_DAMAGE_UNDEFINED,
         SKILLTHREE_RANGE_UNDEFINED,
         0,
         SKILLFOUR_UNDEFINED,
-        SKILLFOUR_MANACOST_UNDEFINED,
         SKILLFOUR_COOLDOWN_UNDEFINED,
         SKILLFOUR_DAMAGE_UNDEFINED,
         SKILLFOUR_RANGE_UNDEFINED,
@@ -114,32 +102,25 @@ Champion_t Champions[3] = {
         BASEHEALTH_FROSTARCHER,
         
         BASEHEALTH_REGEN_FROSTARCHER,
-        BASEMANA_FROSTARCHER,
-        
-        BASEMANA_REGEN_FROSTARCHER,
         BASESPEED_FROSTARCHER,
         BASEATTACKSPEED_FROSTARCHER,
         
         SKILLONE_FROSTARCHER,
-        SKILLONE_MANACOST_FROSTARCHER,
         SKILLONE_COOLDOWN_FROSTARCHER,
         SKILLONE_DAMAGE_FROSTARCHER,
         SKILLONE_RANGE_FROSTARCHER,
         0,
         SKILLTWO_FROSTARCHER,
-        SKILLTWO_MANACOST_FROSTARCHER,
         SKILLTWO_COOLDOWN_FROSTARCHER,
         SKILLTWO_DAMAGE_FROSTARCHER,
         SKILLTWO_RANGE_FROSTARCHER,
         0,
         SKILLTHREE_FROSTARCHER,
-        SKILLTHREE_MANACOST_FROSTARCHER,
         SKILLTHREE_COOLDOWN_FROSTARCHER,
         SKILLTHREE_DAMAGE_FROSTARCHER,
         SKILLTHREE_RANGE_FROSTARCHER,
         0,
         SKILLFOUR_FROSTARCHER,
-        SKILLFOUR_MANACOST_FROSTARCHER,
         SKILLFOUR_COOLDOWN_FROSTARCHER,
         SKILLFOUR_DAMAGE_FROSTARCHER,
         SKILLFOUR_RANGE_FROSTARCHER,
@@ -165,32 +146,25 @@ Champion_t Champions[3] = {
         BASEHEALTH_SHAMBLER,
         
         BASEHEALTH_REGEN_SHAMBLER,
-        BASEMANA_SHAMBLER,
-        
-        BASEMANA_REGEN_SHAMBLER,
         BASESPEED_SHAMBLER,
         BASEATTACKSPEED_SHAMBLER,
         
         SKILLONE_SHAMBLER,
-        SKILLONE_MANACOST_SHAMBLER,
         SKILLONE_COOLDOWN_SHAMBLER,
         SKILLONE_DAMAGE_SHAMBLER,
         SKILLONE_RANGE_SHAMBLER,
         0,
         SKILLTWO_SHAMBLER,
-        SKILLTWO_MANACOST_SHAMBLER,
         SKILLTWO_COOLDOWN_SHAMBLER,
         SKILLTWO_DAMAGE_SHAMBLER,
         SKILLTWO_RANGE_SHAMBLER,
         0,
         SKILLTHREE_SHAMBLER,
-        SKILLTHREE_MANACOST_SHAMBLER,
         SKILLTHREE_COOLDOWN_SHAMBLER,
         SKILLTHREE_DAMAGE_SHAMBLER,
         SKILLTHREE_RANGE_SHAMBLER,
         0,
         SKILLFOUR_SHAMBLER,
-        SKILLFOUR_MANACOST_SHAMBLER,
         SKILLFOUR_COOLDOWN_SHAMBLER,
         SKILLFOUR_DAMAGE_SHAMBLER,
         SKILLFOUR_RANGE_SHAMBLER,

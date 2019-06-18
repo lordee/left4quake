@@ -129,7 +129,7 @@ void () SkillOne_FrostArcher = {
     // if five frost stacks then allow cast
     if (s >= 5)
     {
-        if (Cast(1, self.skill_one_cooldown_time, self.skill_one_manacost))
+        if (Cast(1, self.skill_one_cooldown_time))
         {
             // TODO show cast clientside
             // buff attack speed
@@ -211,7 +211,7 @@ void () FrostArcherSkillTwoTouch = {
 }
 
 void () SkillTwo_FrostArcher = {
-	if (Cast(2, self.skill_two_cooldown_time, self.skill_two_manacost))
+	if (Cast(2, self.skill_two_cooldown_time))
     {
         float num, ang;
         num = 11;
@@ -320,7 +320,7 @@ void () FrostArcherSkillFourTouch = {
 }
 
 void () SkillFour_FrostArcher = {
-	if (Cast(4, self.skill_four_cooldown_time, self.skill_four_manacost))
+	if (Cast(4, self.skill_four_cooldown_time))
     {           
         newmis = spawn ();
         newmis.voided = 0;
