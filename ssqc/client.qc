@@ -387,6 +387,7 @@ called each time a player enters a new level
 ============
 */
 void SetupChamp();
+float Player_SendEntity(entity ePVEnt, float flChanged);
 
 void() PutClientInServer =
 {
@@ -418,6 +419,7 @@ void() PutClientInServer =
 	self.attack_finished = time;
 	self.th_pain = player_pain;
 	self.th_die = PlayerDie;
+	self.SendEntity = Player_SendEntity;
 	
 	self.deadflag = DEAD_NO;
 // pausetime is set by teleporters to keep the player from moving a while
@@ -1058,6 +1060,7 @@ Called every frame after physics are run
 */
 void() PlayerPostThink =
 {
+	self.SendFlags = 1;
 	if (self.view_ofs == '0 0 0')
 		return;         // intermission or finale
 	if (self.deadflag)
@@ -1099,6 +1102,7 @@ void(optional float csqcactive) ClientConnect =
 	bprint (PRINT_HIGH, self.netname);
 	bprint (PRINT_HIGH, " entered the game\n");
 
+	self.menu = MNU_LOBBYTEAM;
 	float newid;
 	entity p;
 	p = find(world, classname, "player");

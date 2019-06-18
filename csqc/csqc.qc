@@ -86,26 +86,12 @@ void(float width, float height, float menushown) CSQC_UpdateView =
     
     glob_vid_size = [width, height];
     
-    /*addentities((intermission?0:MASK_VIEWMODEL)|MASK_ENGINE);
+    addentities((intermission?0:MASK_VIEWMODEL)|MASK_ENGINE);
 
     setproperty(VF_ORIGIN, vPlayerOrigin + [ 0, 0, getstatf( STAT_VIEWHEIGHT ) ]);
     setproperty(VF_ANGLES, view_angles);
 
-    renderscene();*/
-
-    clearscene();
-
-    entity p;
-    p = find(world, classname, "player");
-    while (p)
-    {
-        addentity(p);
-        p = find(p, classname, "player");
-    }
-    setproperty(VF_ORIGIN, vPlayerOrigin + [ 0, 0, getstatf( STAT_VIEWHEIGHT ) ]);
-    setproperty(VF_ANGLES, view_angles);
     renderscene();
-    //addentities()
 
     Hud_Draw(glob_vid_size);
     View_Draw(); // health bars, stuns etc

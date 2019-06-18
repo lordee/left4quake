@@ -345,10 +345,7 @@ void() worldspawn =
 	
     clientstat(STAT_MENU, EV_FLOAT, menu);
 
-//
-// Setup light animation tables. 'a' is total darkness, 'z' is maxbright.
-//
-
+	// Setup light animation tables. 'a' is total darkness, 'z' is maxbright.
 	// 0 normal
 	lightstyle(0, "m");
 	

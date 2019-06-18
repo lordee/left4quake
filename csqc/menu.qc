@@ -44,7 +44,6 @@ void () ClearMenu = {
 
 void Menu_Show(vector vid_size, float menuitem) 
 {
-    // no active menu
     if (vid_size_x != 0)
     {
         ClearMenu();

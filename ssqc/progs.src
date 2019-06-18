@@ -3,6 +3,7 @@
 ../share/defs.qc
 fteextensions.qc
 ../share/lfqdefs.qc
+endpoints.qc
 subs.qc
 buff.qc
 fight.qc
