@@ -338,36 +338,30 @@ Returns the entity to spawn at
 */
 entity() SelectSpawnPoint =
 {
-	local	entity spot;
+	local entity spot;
 	
-// testinfo_player_start is only found in regioned levels
-	spot = find (world, classname, "testplayerstart");
-	if (spot)
-		return spot;
-		
-// choose a info_player_deathmatch point
-	if (coop)
+	if (self.team_no == 1)
 	{
-		lastspawn = find(lastspawn, classname, "info_player_coop");
-		if (lastspawn == world)
-			lastspawn = find (lastspawn, classname, "info_player_start");
-		if (lastspawn != world)
-			return lastspawn;
-	}
-	else if (deathmatch)
-	{
-		lastspawn = find(lastspawn, classname, "info_player_deathmatch");
-		if (lastspawn == world)
-			lastspawn = find (lastspawn, classname, "info_player_deathmatch");
-		if (lastspawn != world)
-			return lastspawn;
-	}
-
-	if (serverflags)
-	{	// return with a rune to start
-		spot = find (world, classname, "info_player_start2");
+		// TODO - check for nearby team mates, spawn near them, not in them
+		spot = find(world, classname, "info_player_coop");
+		if (!spot)
+			spot = find (world, classname, "info_player_start");
 		if (spot)
 			return spot;
+	}
+	else
+	{
+		// monsters spawn near survivors
+		spot = find(world, classname, "player");
+		while (spot)
+		{
+			if (spot.team_no == 1)
+			{
+				// TODO - track number of players and spawn on random player or closest to end or something
+				return spot;
+			}
+			spot = find(spot, classname, "player");
+		}
 	}
 	
 	spot = find (world, classname, "info_player_start");
