@@ -1,7 +1,7 @@
 void (float team) Cmd_JoinTeam_f = {
     self.team_no = team;
 
-    if (self.team_no == 2)
+    if (self.team_no == TEAM_MONSTERS)
     {
         self.menu = MNU_LOBBYCHAMP;
     }

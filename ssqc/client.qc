@@ -340,7 +340,7 @@ entity() SelectSpawnPoint =
 {
 	local entity spot;
 	
-	if (self.team_no == 1)
+	if (self.team_no == TEAM_SURVIVORS)
 	{
 		// TODO - check for nearby team mates, spawn near them, not in them
 		spot = find(world, classname, "info_player_coop");
@@ -355,10 +355,13 @@ entity() SelectSpawnPoint =
 		spot = find(world, classname, "player");
 		while (spot)
 		{
-			if (spot.team_no == 1)
+			if (spot.team_no == TEAM_SURVIVORS)
 			{
+				if (spot.deadflag == DEAD_NO)
+				{
+					return spot;
+				}
 				// TODO - track number of players and spawn on random player or closest to end or something
-				return spot;
 			}
 			spot = find(spot, classname, "player");
 		}
@@ -424,8 +427,16 @@ void() PutClientInServer =
 	self.origin = spot.origin + '0 0 1';
 	self.angles = spot.angles;
 	self.fixangle = TRUE;           // turn this way immediately
+	if (self.team_no == TEAM_MONSTERS)
+	{
+		self.spawned = FALSE;
+	}
+	else
+	{
+		self.spawned = TRUE;
+	}
+	
 
-// oh, this is a hack!
 	setmodel (self, "progs/eyes.mdl");
 	modelindex_eyes = self.modelindex;
 

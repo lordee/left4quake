@@ -229,8 +229,8 @@
 #define OPT_RED     3
 
 #define TEAM_NONE 0
-#define TEAM_BLUE 1
-#define TEAM_RED 2
+#define TEAM_SURVIVORS 1
+#define TEAM_MONSTERS 2
 
 // cp
 #define SCORESTYLE_HOLD 0
