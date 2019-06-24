@@ -19,7 +19,8 @@ void (float c) Cmd_ChooseChamp_f = {
 }
 
 // meh.. outgoing
-float Player_SendEntity(entity ePVEnt, float flChanged) {
+float Player_SendEntity(entity ePVEnt, float flChanged) 
+{
     WriteByte(MSG_ENTITY, SE_PLAYER); // Unique Identifier, I suggest you use enums to make it easy on yourself
     WriteCoord(MSG_ENTITY, self.origin_x); // Position X
     WriteCoord(MSG_ENTITY, self.origin_y); // Position Y
@@ -43,6 +44,16 @@ float Player_SendEntity(entity ePVEnt, float flChanged) {
     WriteFloat(MSG_ENTITY, self.skill_three_cooldown);
     WriteFloat(MSG_ENTITY, self.skill_four_cooldown);
     WriteFloat(MSG_ENTITY, self.stunned);
+    WriteFloat(MSG_ENTITY, self.spawned);
 
     return TRUE;
+}
+
+void Player_SendEvent(float event)
+{
+    WriteByte(MSG_MULTICAST, SVC_CGAMEPACKET);
+    WriteByte(MSG_MULTICAST, event);
+
+    msg_entity = self;
+    multicast (self.origin, MULTICAST_ONE);
 }

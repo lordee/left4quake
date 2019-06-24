@@ -1377,6 +1377,23 @@ void() W_WeaponFrame =
 // check for attack
 	if (self.button0)
 	{
+        if (!self.spawned)
+        {
+            if (self.team_no == TEAM_MONSTERS)
+            {
+                if (SelectSpawnPoint_Champs())
+                {
+                    self.spawned = TRUE;
+                    self.solid = SOLID_SLIDEBOX;
+                }
+                else
+                {
+                    // send message to csqc saying bad spawn
+                    Player_SendEvent(SE_MONSTERSPAWN_INVALID);
+                }
+                return;
+            }
+        }
 		SuperDamageSound ();
 		W_Attack ();
 	}

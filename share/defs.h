@@ -222,6 +222,7 @@
 #define SE_CHAMP    3
 #define SE_NETNAME       4
 #define SE_PLAYER       5
+#define SE_MONSTERSPAWN_INVALID       6
 
 #define OPT_NEITHER 0
 #define OPT_BOTH    1

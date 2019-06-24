@@ -370,6 +370,31 @@ entity() SelectSpawnPoint =
 	
 	return spot;
 };
+
+float SelectSpawnPoint_Champs()
+{
+    float goodspawn;
+    goodspawn = TRUE;
+    // check if visible to any enemies... dodgily
+    entity p;
+    p = find(world, classname, "player");
+    while (p)
+    {
+        if (p.team_no == TEAM_SURVIVORS)
+        {
+            traceline(self.origin, p.origin, MOVE_NOMONSTERS, self);
+            if (trace_fraction == 1)
+            {
+                goodspawn = FALSE;
+            }
+        }
+        
+        p = find(p, classname, "player");
+    }
+
+    return goodspawn;
+}
+
 void() DecodeLevelParms;
 void() PlayerDie;
 
@@ -1054,7 +1079,7 @@ Called every frame after physics are run
 */
 void() PlayerPostThink =
 {
-	self.SendFlags = 1;
+	self.SendFlags = TRUE;
 	if (self.view_ofs == '0 0 0')
 		return;         // intermission or finale
 	if (self.deadflag)
