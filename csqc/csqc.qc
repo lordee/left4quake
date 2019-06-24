@@ -3,15 +3,17 @@ void () Messages_Draw;
 void () MouseClick;
 
 void() CSQC_Parse_Event = {
-    /*float first = readbyte(); 
+    float first = readbyte(); 
     float second, third;
     string thirdS;
     switch (first)
     {
-        case SE_MNU_OPEN:
+        case SE_MONSTERSPAWN_INVALID:
+            centerPrintMessage = "The enemy team can see you!  Can't spawn here.";
+            centerPrintMessageTime = time + 1;
             break;
         default:
-    }*/
+    }
 }
 
 float () Player_PreDraw;
@@ -45,24 +47,25 @@ void CSQC_Ent_Update(float flIsNew) {
 
             // TODO - ui buff/debuff, animation above player in game
             self.stunned = readfloat();
+            self.spawned = readfloat();
                 
             if ( flIsNew == TRUE ) {
                 self.classname = "player";
-                if (cid == 0)
-                {
-                    self.solid = SOLID_SLIDEBOX;
-                }
-                else
-                {
-                    self.solid = SOLID_NOT;
-                }
-                
-                
                 self.predraw = Player_PreDraw;
                 self.drawmask = MASK_ENGINE;               
             }
 
-            if (cid != self.champ_id || cid == 0)
+
+            if (self.spawned)
+            {
+                self.solid = SOLID_SLIDEBOX;
+            }
+            else
+            {
+                self.solid = SOLID_NOT;
+            }
+
+            if (cid != self.champ_id)
             {
                 self.champ_id = cid;
                 GetChamp(self.champ_id);
