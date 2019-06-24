@@ -54,7 +54,6 @@ void CSQC_Ent_Update(float flIsNew) {
                 self.drawmask = MASK_ENGINE;               
             }
 
-
             if (self.spawned)
             {
                 self.solid = SOLID_SLIDEBOX;
