@@ -16,37 +16,10 @@ vector MENU_TEXT_MEDIUM = '16 16 0';
 vector MENU_TEXT_LARGE = '24 24 0';
 float MENU_START_CONTENT = 32;
 
-void (vector boxpos, vector boxsize, string boxpic, string boxtext, vector boxrgb, float boxalpha) spawnbox =
-{
-	drawpic(boxpos, boxpic, boxsize, boxrgb, boxalpha);
-
-
-    float msgwidth = stringwidth(boxtext, 0, '8 8 0');
-    boxpos_x = boxpos_x + boxsize_x;
-    boxpos_x = boxpos_x - (msgwidth * .5);
-    boxpos_y = boxpos_y + boxsize_y - 4;
-
-	drawstring(boxpos, boxtext, '8 8 0', boxrgb, 1, 0);
-};
-
-void () ClearMenu = {
-    setcursormode(FALSE);
-    entity button;
-	
-	// Remove all buttons
-	button = find(world, classname, "gui_button");
-	while (button)
-	{
-		remove(button);
-		button = find(button, classname, "gui_button");
-	}
-}
-
 void Menu_Show(vector vid_size, float menuitem) 
 {
     if (vid_size_x != 0)
     {
-        ClearMenu();
         setcursormode(TRUE);
         mnu_active = menuitem;
         switch (menuitem)
@@ -64,108 +37,10 @@ void Menu_Show(vector vid_size, float menuitem)
     }
 }
 
-entity (float btnID) GetButton = {
-    entity button;
-    button = find(world, classname, "gui_button");
-    while (button)
-    {
-        if (button.btn_no == btnID) {
-            return button;
-        }
-        
-        button = find(button, classname, "gui_button");
-    }
-    return world;
-}
-
-entity (string button_text, void () btnMethod, vector button_spawnpos, string button_image, vector button_size, float button_flags, float btnID) CreateButton =
-{
-    entity newbutton;
-
-    newbutton = spawn();
-    newbutton.classname = "gui_button";
-    newbutton.origin = button_spawnpos;
-    newbutton.size = button_size;
-    newbutton.btn_img = button_image;
-    newbutton.btn_text = button_text;
-    newbutton.btn_flags = button_flags;
-    newbutton.btn_no = btnID;
-    newbutton.think = btnMethod;
-
-    return newbutton;
-}
-
-float () MouseOnButton = {
-    float boxval;
-    entity button;
-    boxval = 0;
-
-    button = find(world, classname, "gui_button");
-    while (button)
-    {
-        if (Mouse.y >= button.origin_y && Mouse.y <= button.origin_y+button.size_y) {
-            if (Mouse.x >= button.origin_x && Mouse.x <= button.origin_x+button.size_x) {
-                boxval = button.btn_no;
-                break;
-            }
-        }
-            
-        button = find(button, classname, "gui_button");
-    }
-
-    return boxval;
-}
-
-void () MouseClick = {
-    float btnid;
-    entity btn;
-    btnid = MouseOnButton();
-    
-        if (btnid > 0)
-        {
-            btn = GetButton(btnid);
-            if (btn.btn_flags & BTNFLAGS_ACTIVE)
-            {
-                btn.nextthink = 1;
-            }
-        }
-    
-}
-
 void Menu_Draw()
 {
     float menu = getstatf(STAT_MENU);
     Menu_Show(glob_vid_size, menu);
-
-    entity button;
-    float btnID;
-
-    float highlight;
-    highlight = MouseOnButton();
-
-    button = find(world, classname, "gui_button");
-	while (button)
-	{
-		btnID = button.btn_no;
-
-        if (btnID == highlight)
-        {
-            if (button.btn_flags & BTNFLAGS_ACTIVE)
-            {
-                spawnbox(button.origin, button.size, button.btn_img, button.btn_text, '1 1 1', .4);
-            }
-            else
-            {
-                spawnbox(button.origin, button.size, button.btn_img, button.btn_text, '1 1 1', .2);
-            }
-        }
-        else
-        {
-            spawnbox(button.origin, button.size, button.btn_img, button.btn_text, '1 1 1', .2);
-        }
-			
-		button = find(button, classname, "gui_button");
-	}
 }
 
 string GetReadyMessage(entity p, string msg)
@@ -237,7 +112,7 @@ string GetReadyMessage(entity p, string msg)
 void () Messages_Draw = {
     if (mnu_active == MNU_INACTIVE)
     {
-        string msg = "";      
+        string msg = "";
         
         entity p;
         p = findfloat(world, entnum, player_localentnum); 
