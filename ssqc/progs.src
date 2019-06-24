@@ -6,8 +6,8 @@ fteextensions.qc
 endpoints.qc
 subs.qc
 buff.qc
-fight.qc
-ai.qc
+../monsters/fight.qc
+../monsters/ai.qc
 combat.qc
 ../share/champtypes.qc
 items.qc
@@ -16,7 +16,7 @@ world.qc
 client.qc
 spectate.qc
 player.qc
-monsters.qc
+../monsters/monsters.qc
 doors.qc
 buttons.qc
 triggers.qc
@@ -27,19 +27,18 @@ champ.qc
 champfrostarcher.qc
 champshambler.qc
 
-ogre.qc
-demon.qc
-shambler.qc
-knight.qc
-soldier.qc
-wizard.qc
-dog.qc
-zombie.qc
-boss.qc
-
-tarbaby.qc		// registered
-hknight.qc		// registered
-fish.qc			// registered
-shalrath.qc		// registered
-enforcer.qc		// registered
-oldone.qc		// registered
+../monsters/ogre.qc
+../monsters/demon.qc
+../monsters/shambler.qc
+../monsters/knight.qc
+../monsters/soldier.qc
+../monsters/wizard.qc
+../monsters/dog.qc
+../monsters/zombie.qc
+../monsters/boss.qc
+../monsters/tarbaby.qc		
+../monsters/hknight.qc		
+../monsters/fish.qc			
+../monsters/shalrath.qc		
+../monsters/enforcer.qc		
+../monsters/oldone.qc		
