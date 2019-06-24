@@ -48,12 +48,21 @@ void CSQC_Ent_Update(float flIsNew) {
                 
             if ( flIsNew == TRUE ) {
                 self.classname = "player";
-                self.solid = SOLID_SLIDEBOX;
+                if (cid == 0)
+                {
+                    self.solid = SOLID_SLIDEBOX;
+                }
+                else
+                {
+                    self.solid = SOLID_NOT;
+                }
+                
+                
                 self.predraw = Player_PreDraw;
                 self.drawmask = MASK_ENGINE;               
             }
 
-            if (cid != self.champ_id)
+            if (cid != self.champ_id || cid == 0)
             {
                 self.champ_id = cid;
                 GetChamp(self.champ_id);
@@ -81,7 +90,6 @@ void View_Draw();
 void(float width, float height, float menushown) CSQC_UpdateView =
 {
     clearscene();
-	//setviewprop(VF_DRAWENGINESBAR, 1);
 	setviewprop(VF_DRAWCROSSHAIR, 1);
     
     glob_vid_size = [width, height];
@@ -90,6 +98,18 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 
     setproperty(VF_ORIGIN, vPlayerOrigin + [ 0, 0, getstatf( STAT_VIEWHEIGHT ) ]);
     setproperty(VF_ANGLES, view_angles);
+
+    renderscene();
+
+    clearscene();
+    p = find(world, classname, "player");
+    while (p)
+    {
+        
+        addentity(p);
+        p = find(p, classname, "player");
+    }
+    setviewprop(VF_DRAWWORLD, 0);
 
     renderscene();
 

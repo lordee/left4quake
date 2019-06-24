@@ -359,7 +359,10 @@ entity() SelectSpawnPoint =
 			{
 				if (spot.deadflag == DEAD_NO)
 				{
+
+
 					return spot;
+
 				}
 				// TODO - track number of players and spawn on random player or closest to end or something
 			}
@@ -430,6 +433,7 @@ void() PutClientInServer =
 	if (self.team_no == TEAM_MONSTERS)
 	{
 		self.spawned = FALSE;
+		self.solid = SOLID_NOT;
 	}
 	else
 	{
@@ -455,9 +459,14 @@ void() PutClientInServer =
 	player_stand1 ();
 	
 	makevectors(self.angles);
-	spawn_tfog (self.origin + v_forward*20);
 
-	spawn_tdeath (self.origin, self);
+	if (self.team_no == TEAM_SURVIVORS)
+	{
+		spawn_tfog (self.origin + v_forward*20);
+
+		spawn_tdeath (self.origin, self);
+	}
+	
 
 	// Set Rocket Jump Modifiers
 	if (stof(infokey(world, "rj")) != 0)

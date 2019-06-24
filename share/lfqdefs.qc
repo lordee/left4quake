@@ -46,6 +46,7 @@ float skill;
 .float ready;
 .float mrvalue;
 .float healthlastregen;
+.float spawned;
 
 // buff fields
 .float bufftype;
