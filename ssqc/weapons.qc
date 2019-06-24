@@ -1367,6 +1367,7 @@ W_WeaponFrame
 Called every frame so impulse events can be handled as well as possible
 ============
 */
+float SelectSpawnPoint_Champs();
 void() W_WeaponFrame =
 {
 	if (time < self.attack_finished)

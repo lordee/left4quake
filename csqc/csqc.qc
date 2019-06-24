@@ -1,11 +1,10 @@
 void () Menu_Draw;
 void () Messages_Draw;
-void () MouseClick;
+string centerPrintMessage;
+float centerPrintMessageTime;
 
 void() CSQC_Parse_Event = {
     float first = readbyte(); 
-    float second, third;
-    string thirdS;
     switch (first)
     {
         case SE_MONSTERSPAWN_INVALID:
@@ -105,14 +104,16 @@ void(float width, float height, float menushown) CSQC_UpdateView =
     renderscene();
 
     clearscene();
+    entity p;
     p = find(world, classname, "player");
     while (p)
     {
-        
         addentity(p);
         p = find(p, classname, "player");
     }
     setviewprop(VF_DRAWWORLD, 0);
+    setproperty(VF_ORIGIN, vPlayerOrigin + [ 0, 0, getstatf( STAT_VIEWHEIGHT ) ]);
+    setproperty(VF_ANGLES, view_angles);
 
     renderscene();
 

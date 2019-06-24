@@ -9,7 +9,6 @@ float(float evtype, float scanx, float chary, float devid) CSQC_InputEvent = {
                 {
                     case K_MOUSE1:
                         // work out if on a button
-                        MouseClick();
                         break;
                 }
                 break;
