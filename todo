@@ -1,6 +1,8 @@
 //todo
 
-solid_not isn't working
+solid_not isn't working for monsters, need alternative
 shader for through walls
 traceline to check for spawn needs to be at mins and maxs too i guess?
+"can't spawn here" message is too long, put a check in and break it up
 can't see survivors (no mdl?)
+players still disappearing after certain distance/pvs or something
