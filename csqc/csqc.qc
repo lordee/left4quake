@@ -63,13 +63,15 @@ void CSQC_Ent_Update(float flIsNew) {
                 self.solid = SOLID_NOT;
             }
 
-            if (cid != self.champ_id)
-            {
+            self.forceshader = shaderforname("highlight_player", "");
+
+            //if (cid != self.champ_id)
+            //{
                 self.champ_id = cid;
                 GetChamp(self.champ_id);
                 setmodel(self, selfchamp.model);
                 setsize (self, selfchamp.model_min, selfchamp.model_max);
-            }
+            //}
             
             setorigin(self, self.origin);
             break;
@@ -99,8 +101,22 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 
     setproperty(VF_ORIGIN, vPlayerOrigin + [ 0, 0, getstatf( STAT_VIEWHEIGHT ) ]);
     setproperty(VF_ANGLES, view_angles);
+    
+    vector psize = (vector)getproperty(VF_SCREENPSIZE);
+    /*setproperty(VF_RT_DESTCOLOUR, "mycolorbuffer", 1, psize); //rgba8
+    setviewprop(VF_RT_DEPTH, "mydepthbuffer", 5, psize);*/
 
     renderscene();
+
+    //mycolorbuffer and mydepthbuffer now contain the scene colour+depth.
+    
+    
+    setproperty(VF_RT_DESTCOLOUR, "mycolorbuffer", 1, psize); //rgba8
+    setviewprop(VF_RT_DEPTH, "mydepthbuffer", 5, psize);
+    
+    setproperty(VF_RT_DESTCOLOUR, ""); //2d is now drawing to the screen again.
+    setproperty(VF_RT_SOURCECOLOUR, "mycolorbuffer"); //$sourcecolour now refers to 'mycolorbuffer'
+    setproperty(VF_RT_DEPTH, "");
 
     clearscene();
     entity p;
@@ -114,8 +130,19 @@ void(float width, float height, float menushown) CSQC_UpdateView =
     setproperty(VF_ORIGIN, vPlayerOrigin + [ 0, 0, getstatf( STAT_VIEWHEIGHT ) ]);
     setproperty(VF_ANGLES, view_angles);
 
+    
+    
     renderscene();
 
+    setproperty(VF_RT_DESTCOLOUR, "mycolorbuffer", 1, psize); //rgba8
+    setviewprop(VF_RT_DEPTH, "mydepthbuffer", 5, psize);
+
+    setproperty(VF_RT_DESTCOLOUR, ""); //2d is now drawing to the screen again.
+    setproperty(VF_RT_SOURCECOLOUR, "mycolorbuffer"); //$sourcecolour now refers to 'mycolorbuffer'
+    setproperty(VF_RT_DEPTH, "");
+
+    
+    
     Hud_Draw(glob_vid_size);
     View_Draw(); // health bars, stuns etc
     sui_begin(glob_vid_size_x, glob_vid_size_y);

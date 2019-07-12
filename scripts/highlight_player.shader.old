@@ -1,0 +1,10 @@
+highlight_player
+{
+    program highlight_player
+    {
+        map $sourcecolour
+    }
+    {
+        map $sourcedepth
+    }    
+}
