@@ -47,6 +47,8 @@ float skill;
 .float mrvalue;
 .float healthlastregen;
 .float spawned;
+.float downedflag;
+.float downedhealthtick;
 
 // buff fields
 .float bufftype;

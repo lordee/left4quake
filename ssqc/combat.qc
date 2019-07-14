@@ -114,14 +114,43 @@ void(entity targ, entity attacker) Killed =
 	self.touch = SUB_Null;
 	self.effects = 0;
 
-/*SERVER
-	monster_death_use();
-*/
-	self.th_die ();
+	self.th_die();
 	
 	self = oself;
 };
 
+// first time player has been downed
+void Downed(entity targ, entity attacker)
+{
+	self = targ;
+	// lie down
+	self.weaponmodel="";
+	self.view_ofs = '0 0 -8';
+	self.deadflag = DEAD_DYING;
+	self.solid = SOLID_NOT;
+	self.flags = self.flags - (self.flags & FL_ONGROUND);
+	self.movetype = MOVETYPE_TOSS;
+	if (self.velocity_z < 10)
+		self.velocity_z = self.velocity_z + random()*300;
+	
+	
+	DeathSound();
+	
+	self.angles_x = 0;
+	self.angles_z = 0;
+	
+	player_down1();
+	self.movetype = MOVETYPE_NONE;
+
+	// go to ticking health
+	self.health = SURVIVOR_HEALTH_DOWNED;
+	self.downedhealthtick = time + SURVIVOR_HEALTH_DOWNED_TICK;
+
+	// msg
+	// TODO - make messages
+	string msg = self.netname + " has been downed by something\n";
+	bprint(PRINT_HIGH, msg);
+}
 
 /*
 ============
@@ -139,13 +168,11 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	local   float   take;
 	local   string  attackerteam, targteam;
 
-
 	if (!targ.takedamage)
 		return;
 
 // used by buttons and triggers to set activator for target firing
 	damage_attacker = attacker;
-
 
 // check for quad damage powerup on the attacker
 	if (attacker.super_damage_finished > time && inflictor.classname != "door")
@@ -179,29 +206,13 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 
 	damage_inflictor = inflictor;        
 
-
 // figure momentum add
 	if ( (inflictor != world) && (targ.movetype == MOVETYPE_WALK) )
 	{
 		dir = targ.origin - (inflictor.absmin + inflictor.absmax) * 0.5;
 		dir = normalize(dir);
-		// Set kickback for smaller weapons
-//Zoid -- use normal NQ kickback
-//		// Read: only if it's not yourself doing the damage
-//		if ( (damage < 60) & ((attacker.classname == "player") & (targ.classname == "player")) & ( attacker.netname != targ.netname)) 
-//			targ.velocity = targ.velocity + dir * damage * 11;
-//		else                        
-		// Otherwise, these rules apply to rockets and grenades                        
-		// for blast velocity
-			targ.velocity = targ.velocity + dir * damage * 8;
-		
-		// Rocket Jump modifiers
-		if ( (rj > 1) & ((attacker.classname == "player") & (targ.classname == "player")) & ( attacker.netname == targ.netname)) 
-			targ.velocity = targ.velocity + dir * damage * rj;
-
+		targ.velocity = targ.velocity + dir * damage * 8;
 	}
-
-
 
 // check for godmode or invincibility
 	if (targ.flags & FL_GODMODE)
@@ -217,7 +228,6 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 	}
 
 // team play damage avoidance
-//ZOID 12-13-96: self.team doesn't work in QW.  Use keys
 	attackerteam = infokey(attacker, "team");
 	targteam = infokey(targ, "team");
 
@@ -236,6 +246,17 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 
 	if (targ.health <= 0)
 	{
+		if (self.team_no == TEAM_SURVIVORS)
+		{
+			// allow player to be resuscitated if they're downed
+			if (self.downedflag == FALSE)
+			{
+				self.downedflag = TRUE;
+				Downed(targ, attacker);
+				return;
+			}
+		}
+
 		Killed (targ, attacker);
 		return;
 	}

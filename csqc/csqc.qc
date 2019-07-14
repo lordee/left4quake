@@ -110,7 +110,6 @@ void(float width, float height, float menushown) CSQC_UpdateView =
 
     //mycolorbuffer and mydepthbuffer now contain the scene colour+depth.
     
-    
     setproperty(VF_RT_DESTCOLOUR, "mycolorbuffer", 1, psize); //rgba8
     setviewprop(VF_RT_DEPTH, "mydepthbuffer", 5, psize);
     

@@ -252,7 +252,7 @@ void() changelevel_touch =
 				{
 					totSurvivors = totSurvivors - 1;
 				}
-				else if (vlen(p.origin, other.origin) <= 300)
+				else if (vlen(p.origin - other.origin) <= 300)
 				{
 					totSurvivors = totSurvivors - 1;
 				}
@@ -391,7 +391,8 @@ float SelectSpawnPoint_Champs()
     p = find(world, classname, "player");
 	vector orghead;
 	orghead = self.origin;
-	orghead = orghead + (selfchamp.model_max_z / 2);
+	vector mod = selfchamp.model_max;
+	orghead = orghead + (mod_z / 2);
 
 	vector otherhead;
     while (p)
@@ -1122,6 +1123,16 @@ void() PlayerPostThink =
 		return;         // intermission or finale
 	if (self.deadflag)
 		return;
+
+	if (self.downedflag)
+	{
+		if (self.downedhealthtick >= time)
+		{
+			self.downedhealthtick = time + SURVIVOR_HEALTH_DOWNED_TICK;
+			self.deathtype = "downedtick";
+			T_Damage(self, world, world, 5);
+		}
+	}
 
 // check to see if player landed and play landing sound 
 	if ((self.jump_flag < -300) && (self.flags & FL_ONGROUND) )

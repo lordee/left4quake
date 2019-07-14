@@ -256,6 +256,10 @@
 #define MENU_PREGAME = 32
 #define MENU_POSTGAME = 64
 
+// survivor
+#define SURVIVOR_HEALTH_DOWNED_TICK 10
+#define SURVIVOR_HEALTH_DOWNED  100
+
 // champs
 #define CHAMP_UNDEFINED      0
 #define CHAMP_FROSTARCHER      1
