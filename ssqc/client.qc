@@ -217,18 +217,6 @@ void() execute_changelevel =
 
 	pos = FindIntermission ();
 
-// play intermission music
-	WriteByte (MSG_ALL, SVC_CDTRACK);
-	WriteByte (MSG_ALL, 3);
-
-	WriteByte (MSG_ALL, SVC_INTERMISSION);
-	WriteCoord (MSG_ALL, pos.origin_x);
-	WriteCoord (MSG_ALL, pos.origin_y);
-	WriteCoord (MSG_ALL, pos.origin_z);
-	WriteAngle (MSG_ALL, pos.mangle_x);
-	WriteAngle (MSG_ALL, pos.mangle_y);
-	WriteAngle (MSG_ALL, pos.mangle_z);
-	
 	other = find (world, classname, "player");
 	while (other != world)
 	{
@@ -247,28 +235,45 @@ void() changelevel_touch =
 	if (other.classname != "player")
 		return;
 
-// if "noexit" is set, blow up the player trying to leave
-//ZOID, 12-13-96, noexit isn't supported in QW.  Overload samelevel
-//      if ((cvar("noexit") == 1) || ((cvar("noexit") == 2) && (mapname != "start")))
-	if ((cvar("samelevel") == 2) || ((cvar("samelevel") == 3) && (mapname != "start")))
+	if (other.team_no == TEAM_SURVIVORS)
 	{
-		T_Damage (other, self, self, 50000);
-		return;
+		// wait for all survivors to be there, or a combo of that and dead
+		entity p;
+		p = find(world, classname, "player");
+		float totSurvivors;
+		totSurvivors = 0;
+		
+		while (p)
+		{
+			if (p.team_no == TEAM_SURVIVORS)
+			{
+				totSurvivors = totSurvivors + 1;
+				if (p.deadflag == DEAD_DEAD)
+				{
+					totSurvivors = totSurvivors - 1;
+				}
+				else if (vlen(p.origin, other.origin) <= 300)
+				{
+					totSurvivors = totSurvivors - 1;
+				}
+			}
+		}
+		if (totSurvivors == 0)
+		{
+			bprint (PRINT_HIGH,"The survivors made it to the end!\n");
+			
+			nextmap = self.map;
+
+			SUB_UseTargets ();
+
+			self.touch = SUB_Null;
+
+		// we can't move people right now, because touch functions are called
+		// in the middle of C movement code, so set a think time to do it
+			self.think = execute_changelevel;
+			self.nextthink = time + 0.1;
+		}
 	}
-
-	bprint (PRINT_HIGH, other.netname);
-	bprint (PRINT_HIGH," exited the level\n");
-	
-	nextmap = self.map;
-
-	SUB_UseTargets ();
-
-	self.touch = SUB_Null;
-
-// we can't move people right now, because touch functions are called
-// in the middle of C movement code, so set a think time to do it
-	self.think = execute_changelevel;
-	self.nextthink = time + 0.1;
 };
 
 /*QUAKED trigger_changelevel (0.5 0.5 0.5) ? NO_INTERMISSION
@@ -384,12 +389,25 @@ float SelectSpawnPoint_Champs()
     // check if visible to any enemies... dodgily
     entity p;
     p = find(world, classname, "player");
+	vector orghead;
+	orghead = self.origin;
+	orghead = orghead + (selfchamp.model_max_z / 2);
+
+	vector otherhead;
     while (p)
     {
         if (p.team_no == TEAM_SURVIVORS)
         {
             traceline(self.origin, p.origin, MOVE_NOMONSTERS, self);
             if (trace_fraction == 1)
+            {
+                goodspawn = FALSE;
+            }
+
+			otherhead = p.origin + (p.model_max_z / 2);
+			traceline(orghead, otherhead, MOVE_NOMONSTERS, self);
+
+			if (trace_fraction == 1)
             {
                 goodspawn = FALSE;
             }
