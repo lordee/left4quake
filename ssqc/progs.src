@@ -3,13 +3,14 @@
 ../share/defs.qc
 fteextensions.qc
 ../share/lfqdefs.qc
+../share/champtypes.qc
 endpoints.qc
 subs.qc
 buff.qc
 ./monsters/fight.qc
 ./monsters/ai.qc
 combat.qc
-../share/champtypes.qc
+
 items.qc
 weapons.qc
 world.qc

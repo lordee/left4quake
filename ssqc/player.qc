@@ -427,6 +427,10 @@ local entity    bubble_spawner;
 	return;
 };
 
+void ReviveSound()
+{
+	sound (self, CHAN_VOICE, "player/gasp2.wav", 1, ATTN_NONE);
+}
 
 void() DeathSound =
 {

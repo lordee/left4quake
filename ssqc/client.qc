@@ -1170,7 +1170,8 @@ void AliasCommand(float imp, string alias)
 
 void AliasImpulses()
 {
-	AliasCommand(READY, "ready");
+	AliasCommand(IMP_READY, "ready");
+	AliasCommand(IMP_USE, "use");
 }
 
 /*

@@ -49,6 +49,8 @@ float skill;
 .float spawned;
 .float downedflag;
 .float downedhealthtick;
+.float revivetick;
+.float reviveprog;
 
 // buff fields
 .float bufftype;

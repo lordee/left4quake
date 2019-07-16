@@ -250,6 +250,7 @@
 // survivor
 #define SURVIVOR_HEALTH_DOWNED_TICK 10
 #define SURVIVOR_HEALTH_DOWNED  100
+#define SURVIVOR_REVIVE_TIME 10
 
 // champs
 #define CHAMP_UNDEFINED      0
@@ -280,7 +281,8 @@
 #define SKILL_USETWO    7
 #define SKILL_USETHREE   8
 #define SKILL_USEFOUR    9
-#define READY   11
+#define IMP_READY   11
+#define IMP_USE   12
 
 // global rules
 #define REGEN_TICKTIME  1

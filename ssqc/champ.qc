@@ -164,6 +164,25 @@ void (float skillnum) UseSkill = {
     }
 }
 
+void Use(entity player)
+{
+    // if pointed at a downed player
+    makevectors(player.v_angle);
+    vector source;
+    source = player.origin + player.view_ofs;
+
+    traceline(source, source + v_forward * 64, MOVE_HITMODEL | MOVE_EVERYTHING, player);
+
+    if (trace_ent)
+    {
+        if (trace_ent.team_no == player.team_no)
+        {
+            // start/continue revive process
+            RevivePlayer(player, trace_ent);
+        }
+    }
+}
+
 float Cast(float skillnum, float cooldown)
 {
     if (cooldown <= time)

@@ -1335,7 +1335,8 @@ ImpulseCommands
 ============
 */
 
-void (entity player) ToggleReady;
+void ToggleReady(entity player);
+void Use(entity player);
 void() ImpulseCommands =
 {
 	if (self.stunned)
@@ -1346,8 +1347,11 @@ void() ImpulseCommands =
 
 	switch (self.impulse)
 	{
-		case READY:
+		case IMP_READY:
 			ToggleReady(self);
+			break;
+		case IMP_USE:
+			Use(self);
 			break;
 	}
 	

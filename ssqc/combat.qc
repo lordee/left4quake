@@ -119,6 +119,37 @@ void(entity targ, entity attacker) Killed =
 	self = oself;
 };
 
+void GetChamp(float champid);
+void W_SetCurrentAmmo();
+void player_stand1();
+void ReviveSound();
+void RevivePlayer(entity reviver, entity downed)
+{
+    if (downed.revivetick <= time)
+    {
+        downed.revivetick = time + 1;
+        downed.reviveprog = downed.reviveprog + 1;
+        if (downed.reviveprog >= SURVIVOR_REVIVE_TIME)
+        {
+            downed.reviveprog = 0;
+            GetChamp(downed.champ_id); // undefined, also survivor defaults
+			self = downed;
+			W_SetCurrentAmmo(); // weapon model etc
+			self.view_ofs = selfchamp.model_viewoffset;
+			self.deadflag = DEAD_NO;
+			self.solid = SOLID_SLIDEBOX;
+			self.flags = FL_CLIENT;
+			self.movetype = MOVETYPE_WALK;
+
+			ReviveSound();
+
+			player_stand1();
+			string msg = strcat(self.netname, " has been revived by ", reviver.netname, "\n");
+			bprint(PRINT_HIGH, msg);
+        }
+    }
+}
+
 void DeathSound();
 void player_down1();
 // first time player has been downed
@@ -134,7 +165,6 @@ void Downed(entity targ, entity attacker)
 	self.movetype = MOVETYPE_TOSS;
 	if (self.velocity_z < 10)
 		self.velocity_z = self.velocity_z + random()*300;
-	
 	
 	DeathSound();
 	
