@@ -119,6 +119,8 @@ void(entity targ, entity attacker) Killed =
 	self = oself;
 };
 
+void DeathSound();
+void player_down1();
 // first time player has been downed
 void Downed(entity targ, entity attacker)
 {
@@ -148,7 +150,7 @@ void Downed(entity targ, entity attacker)
 
 	// msg
 	// TODO - make messages
-	string msg = self.netname + " has been downed by something\n";
+	string msg = strcat(self.netname, " has been downed by something\n");
 	bprint(PRINT_HIGH, msg);
 }
 

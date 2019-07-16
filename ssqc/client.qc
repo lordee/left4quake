@@ -392,20 +392,25 @@ float SelectSpawnPoint_Champs()
 	vector orghead;
 	orghead = self.origin;
 	vector mod = selfchamp.model_max;
-	orghead = orghead + (mod_z / 2);
+	orghead_z = orghead_z + (mod_z / 2);
 
 	vector otherhead;
+	vector othermax;
     while (p)
     {
         if (p.team_no == TEAM_SURVIVORS)
         {
+
             traceline(self.origin, p.origin, MOVE_NOMONSTERS, self);
             if (trace_fraction == 1)
             {
                 goodspawn = FALSE;
             }
 
-			otherhead = p.origin + (p.model_max_z / 2);
+			GetChamp(p.champ_id);
+			othermax = selfchamp.model_max;
+			otherhead = p.origin;
+			otherhead_z = otherhead_z + (othermax_z / 2);
 			traceline(orghead, otherhead, MOVE_NOMONSTERS, self);
 
 			if (trace_fraction == 1)
