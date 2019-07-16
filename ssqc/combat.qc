@@ -248,12 +248,12 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_Damage=
 
 	if (targ.health <= 0)
 	{
-		if (self.team_no == TEAM_SURVIVORS)
+		if (targ.team_no == TEAM_SURVIVORS)
 		{
 			// allow player to be resuscitated if they're downed
-			if (self.downedflag == FALSE)
+			if (targ.downedflag == FALSE)
 			{
-				self.downedflag = TRUE;
+				targ.downedflag = TRUE;
 				Downed(targ, attacker);
 				return;
 			}
