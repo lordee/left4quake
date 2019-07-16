@@ -32,6 +32,7 @@ float Player_SendEntity(entity ePVEnt, float flChanged)
     WriteShort(MSG_ENTITY, self.velocity_y); // Velocity X
     WriteShort(MSG_ENTITY, self.velocity_z); // Velocity X
     WriteFloat(MSG_ENTITY, self.flags); // Flags, important for physics
+    WriteFloat(MSG_ENTITY, self.frame);
 
 	WriteString(MSG_ENTITY, self.netname);
 	WriteFloat(MSG_ENTITY, self.champ_id);

@@ -33,6 +33,7 @@ void CSQC_Ent_Update(float flIsNew) {
             self.velocity_y = readshort();
             self.velocity_z = readshort();
             self.flags = readfloat();
+            self.frame = readfloat();
             self.netname = readstring();
             float cid = readfloat();
             self.ready = readfloat();
